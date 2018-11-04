@@ -1,0 +1,49 @@
+---
+layout: default
+photo_size: 196
+---
+
+<div id="container">
+
+{% for i in site.institutions %}
+  {% if i.institution == page.institution %}
+    {% assign institution_name = i.name %}
+  {% endif %}
+{% endfor %}
+
+<h1><a href="/institutions/{{ page.institution }}">{{ institution_name }}</a> - {{ page.year }}</h1>
+
+{% assign year = page.year | downcase %}
+
+{% for d in site.data[page.institution][year] %}
+  <div class="photo-container">
+    {% if d.fbid == None %}
+    <div class="photo-unknown">?</div>
+    {% else %}
+    <div class="photo">
+      <a href="https://www.facebook.com/profile.php?id={{ d.fbid }}">
+        <img src="https://www.facebook.com/search/async/profile_picture/?fbid={{ d.fbid }}&width={{ layout.photo_size }}&height={{ layout.photo_size }}"
+             alt="{{ d.name }}"
+             width="{{ layout.photo_size | plus:4 }}px"
+             height="{{ layout.photo_size | plus:4 }}px"/>
+      </a>
+    </div>
+    {% endif %}
+    {% if d.alias == None %}
+      <div class="alias">
+        {{ d.name }}
+      </div>
+      <div class="name">
+        &nbsp;
+      </div>
+    {% else %}
+    <div class="alias">
+      {{ d.alias }}
+    </div>
+    <div class="name">
+      ({{ d.name }})
+    </div>
+    {% endif %}
+  </div>
+{% endfor %}
+</div>

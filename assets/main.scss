@@ -1,0 +1,58 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.page-content {
+  background-color: #EEE;
+}
+
+.wrapper {
+  max-width: 1200px;
+}
+
+.photo-container {
+  width: auto;
+  background-color: #FCFCFC;
+  margin: 20px;
+  text-align: center;
+  box-shadow: 5px 5px #DDD;
+  display: inline-block;
+}
+
+.photo {
+  padding: 20px 20px 5px 20px;
+}
+
+.photo:hover {
+  opacity: 0.8;
+}
+
+.photo-unknown {
+  width: 200px;
+  height: 200px;
+  margin: 20px 20px 5px 20px;
+  font-size: 120px;
+  color: #FFF;
+  border: 1px solid #DDD;
+  background-color: #EEE;
+}
+
+img {
+  border: 1px solid #EEE;
+}
+
+.name {
+  color: #666;
+  font-size: 0.9em
+}
+
+/* @media screen overrides */
+
+@media screen and (max-width: 800px) {
+  img { width: 76px; height: 76px; };
+  .photo-unknown { margin: 10px 10px 2px 10px; width: 76px; height: 76px; font-size: 50px } ;
+  .photo-container { font-size: 0.5em; margin: 4px } ;
+  .photo { padding: 10px 10px 2px 10px; };
+  h1 { font-size: 1em }
+}
