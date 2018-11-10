@@ -11,6 +11,10 @@
   max-width: 1200px;
 }
 
+#photos {
+  text-align: center;
+}
+
 .photo-container {
   width: auto;
   background-color: #FCFCFC;
@@ -47,12 +51,21 @@ img {
   font-size: 0.9em
 }
 
+#warning {
+  margin: 5px;
+  background-color: #ea9b93;
+  height: 32px;
+  border: 1px solid red;
+  display: none;
+  padding: 5px;
+  text-align: center;
+}
 /* @media screen overrides */
 
 @media screen and (max-width: 800px) {
   img { width: 76px; height: 76px; };
   .photo-unknown { margin: 10px 10px 2px 10px; width: 76px; height: 76px; font-size: 50px } ;
-  .photo-container { font-size: 0.5em; margin: 4px } ;
+  .photo-container { font-size: 0.5em; margin: 4px; box-shadow: 2px 2px #DDD;} ;
   .photo { padding: 10px 10px 2px 10px; };
-  h1 { font-size: 1em }
+  h1 { font-size: 1em };
 }
