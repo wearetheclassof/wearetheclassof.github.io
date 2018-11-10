@@ -3,19 +3,47 @@ layout: default
 photo_size: 196
 ---
 
-<div id="container">
-
 {% for i in site.institutions %}
   {% if i.institution == page.institution %}
     {% assign institution_name = i.name %}
   {% endif %}
 {% endfor %}
 
-<h1><a href="/institutions/{{ page.institution }}">{{ institution_name }}</a> - {{ page.year }}</h1>
-
 {% assign year = page.year | downcase %}
 
+{% assign i = 1 %}
+
+<script>
+<!-- this should be in the header but... -->
+
+var failed = 0;
+var count = {{ site.data[page.institution][year] | size }};
+var triggered = false;
+
+function failedToLoad()
+{
+  failed += 1;
+  if (failed > (count / 10) && !triggered) // trigger on 10% failure
+  {
+    console.log("Warning: more than 10% of images failed to load, is user logged into Facebook?");
+    var d = document.getElementById("photos");
+    d.style["display"] = "none";
+    var w = document.getElementById("warning");
+    w.style["display"] = "block";
+    triggered = true;
+  }
+}
+
+</script>
+
+<h1><a href="/institutions/{{ page.institution }}">{{ institution_name }}</a> - {{ page.year }}</h1>
+
+<div id="warning">
+Please login to Facebook to use this site - Facebook images are not accessible anonymously.
+</div>
+<div id="photos">
 {% for d in site.data[page.institution][year] %}
+
   <div class="photo-container">
     {% if d.fbid == None %}
     <div class="photo-unknown">?</div>
@@ -25,6 +53,7 @@ photo_size: 196
         <img src="https://www.facebook.com/search/async/profile_picture/?fbid={{ d.fbid }}&width={{ layout.photo_size }}&height={{ layout.photo_size }}"
              alt="{{ d.name }}"
              width="{{ layout.photo_size | plus:4 }}px"
+             onerror="failedToLoad()"
              height="{{ layout.photo_size | plus:4 }}px"/>
       </a>
     </div>
@@ -45,5 +74,7 @@ photo_size: 196
     </div>
     {% endif %}
   </div>
+
+  {% assign i = i | plus: 1 %}
 {% endfor %}
 </div>
